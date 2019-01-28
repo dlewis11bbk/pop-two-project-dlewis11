@@ -1,4 +1,4 @@
-package fraction;
+package Fraction;
 
 public class FractionImpl implements Fraction {
     /**

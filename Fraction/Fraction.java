@@ -1,4 +1,4 @@
-package fraction;
+package Fraction;
 
 /**
  * Representing fractions of the form numerator and denominator
