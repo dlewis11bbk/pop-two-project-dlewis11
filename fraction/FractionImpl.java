@@ -1,10 +1,10 @@
-package Fraction;
+package fraction;
 
 public class FractionImpl implements Fraction {
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
      * Normalize the fraction as you create it.
-     * For instance, if the parameters are <pre>(8, -12)</pre>, create a <pre>Fraction</pre> with numerator
+     * For instance, if the parameters are <pre>(8, -12)</pre>, create a <pre>fraction</pre> with numerator
      * <pre>-2</pre> and denominator <pre>3</pre>.
      *
      * The constructor should throw an <pre>ArithmeticException</pre> if the denominator is zero.
@@ -12,8 +12,13 @@ public class FractionImpl implements Fraction {
      * @param numerator
      * @param denominator
      */
+
+    private int numerator;
+    private int denominator;
+
     public FractionImpl(int numerator, int denominator) {
-        // TODO
+        this.numerator = numerator;
+        this.denominator = denominator;
     }
 
     /**
@@ -128,11 +133,16 @@ public class FractionImpl implements Fraction {
         return 0;
     }
 
+    public int lowestForm(int n, int d){
+        return n;
+    }
+
+
     /**
      * @inheritDoc
      */
     @Override
     public String toString() {
-        return null;
+        return this.numerator + "/" + this.denominator;
     }
 }
