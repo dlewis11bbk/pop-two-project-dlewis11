@@ -1,4 +1,5 @@
 package fraction;
+import java.lang.Math.*;
 
 public class FractionImpl implements Fraction {
     /**
@@ -19,6 +20,7 @@ public class FractionImpl implements Fraction {
     public FractionImpl(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
+        this.normalise();
     }
 
     /**
@@ -27,7 +29,8 @@ public class FractionImpl implements Fraction {
      * @param wholeNumber representing the numerator
      */
     public FractionImpl(int wholeNumber) {
-        // TODO
+        this.numerator = wholeNumber;
+        this.denominator = 1;
     }
 
     /**
@@ -43,6 +46,19 @@ public class FractionImpl implements Fraction {
      */
     public FractionImpl(String fraction) {
         // TODO
+        // string white space at front and end
+        String f = fraction.trim();
+        // split string at "/"
+        String[] mystring = new String[2];
+        mystring = f.split("/");
+        // numerator is part 1
+        // System.out.println(mystring[0]);
+        // denominator is part 2
+        // System.out.println(mystring[1]);
+        this.numerator = Integer.parseInt(mystring[0]);
+        this.denominator = Integer.parseInt(mystring[1]);
+
+        this.normalise();
     }
 
     /**
@@ -58,7 +74,18 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction subtract(Fraction f) {
-        return null;
+        /*
+        a/b - c/d is (ad - bc)/bd
+        */
+        FractionImpl temp;
+        temp = new FractionImpl(f.toString());
+        int a, b, c, d;
+        a = this.numerator;
+        b = this.denominator;
+        c = temp.numerator;
+        d = temp.denominator;
+        return new FractionImpl(a * d - b * c, b * d);
+
     }
 
     /**
@@ -133,10 +160,6 @@ public class FractionImpl implements Fraction {
         return 0;
     }
 
-    public int lowestForm(int n, int d){
-        return n;
-    }
-
 
     /**
      * @inheritDoc
@@ -144,5 +167,41 @@ public class FractionImpl implements Fraction {
     @Override
     public String toString() {
         return this.numerator + "/" + this.denominator;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    private void normalise() {
+        int i;
+
+        if (this.denominator == 0){
+            throw new ArithmeticException("Divide by zero!");
+        }
+
+        i = this.GCD(Math.abs(this.numerator), Math.abs(this.denominator));
+
+        if (this.denominator < 0) {
+            this.numerator *= -1;
+            this.denominator *= -1;
+        }
+        this.numerator /=  i;
+        this.denominator /= i;
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public int GCD(int a, int b) {
+        while (a != 0 && b != 0) {
+            // System.out.println(a + " " + b);
+            if (a > b) {
+                a = a % b;
+            } else {
+                b = b % a;
+            }
+        }
+        return (a == 0) ? b : a;
     }
 }
