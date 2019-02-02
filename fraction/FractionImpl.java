@@ -75,8 +75,6 @@ public class FractionImpl implements Fraction {
     @Override
     public Fraction subtract(Fraction f) {
         /*
-        a/b - c/d is (ad - bc)/bd
-        */
         FractionImpl temp;
         temp = new FractionImpl(f.toString());
         int a, b, c, d;
@@ -85,7 +83,19 @@ public class FractionImpl implements Fraction {
         c = temp.numerator;
         d = temp.denominator;
         return new FractionImpl(a * d - b * c, b * d);
+        */
 
+        FractionImpl temp;
+        temp = new FractionImpl(f.toString());
+        int a, b, c, d;
+        a = this.numerator;
+        b = this.denominator;
+        c = temp.numerator;
+        d = temp.denominator;
+        temp.numerator = a * d - b * c;
+        temp.denominator = b * d;
+        temp.normalise();
+        return temp;
     }
 
     /**
@@ -93,8 +103,20 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction multiply(Fraction f) {
-        return null;
+        // (a/b) * (c/d) is (a*c)/(b*d)
+        FractionImpl temp;
+        temp = new FractionImpl(f.toString());
+        int a, b, c, d;
+        a = this.numerator;
+        b = this.denominator;
+        c = temp.numerator;
+        d = temp.denominator;
+        temp.numerator = a * c;
+        temp.denominator = b * d;
+        temp.normalise();
+        return temp;
     }
+
 
     /**
      * @inheritDoc
