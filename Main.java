@@ -74,7 +74,37 @@ public class Main {
         f3 = f1.multiply(f2);
         System.out.println(f1 + " multiplied by " + f2 + " = " + f3);
 
+        lineprint();
+        f1 = new FractionImpl("1/3");
+        System.out.println(f1.splitN(f1.toString()));
+        System.out.println(f1.splitD(f1.toString()));
 
+        lineprint();
+        x = "              5/-20";
+        f1 = new FractionImpl(x);
+        System.out.println(f1);
+        System.out.println(f1.splitN(f1.toString()));
+        System.out.println(f1.splitD(f1.toString()));
+
+
+        lineprint();
+        x = "5/50     ";
+        f1 = new FractionImpl(x);
+        System.out.println(f1);
+        System.out.println(f1.splitN(f1.toString()));
+        System.out.println(f1.splitD(f1.toString()));
+        f2 = f1.inverse();
+        System.out.println(f2);
+
+        lineprint();
+        f1 = new FractionImpl("0/12   ");
+        System.out.println(f1);
+        try {
+            f1.inverse();
+        }
+        catch (ArithmeticException exc){
+            System.out.println(exc);
+        }
 
     }
 }

@@ -45,19 +45,10 @@ public class FractionImpl implements Fraction {
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) {
-        // TODO
-        // string white space at front and end
         String f = fraction.trim();
-        // split string at "/"
-        String[] mystring = new String[2];
-        mystring = f.split("/");
-        // numerator is part 1
-        // System.out.println(mystring[0]);
-        // denominator is part 2
-        // System.out.println(mystring[1]);
+        String mystring[] = f.split("/");
         this.numerator = Integer.parseInt(mystring[0]);
         this.denominator = Integer.parseInt(mystring[1]);
-
         this.normalise();
     }
 
@@ -85,6 +76,7 @@ public class FractionImpl implements Fraction {
         return new FractionImpl(a * d - b * c, b * d);
         */
 
+        /*
         FractionImpl temp;
         temp = new FractionImpl(f.toString());
         int a, b, c, d;
@@ -96,6 +88,15 @@ public class FractionImpl implements Fraction {
         temp.denominator = b * d;
         temp.normalise();
         return temp;
+        */
+
+        int a, b, c, d;
+        a = this.numerator;
+        b = this.denominator;
+        c = this.splitN(f.toString());
+        d = this.splitD(f.toString());
+        return new FractionImpl(a * d - b * c, b * d);
+
     }
 
     /**
@@ -104,17 +105,12 @@ public class FractionImpl implements Fraction {
     @Override
     public Fraction multiply(Fraction f) {
         // (a/b) * (c/d) is (a*c)/(b*d)
-        FractionImpl temp;
-        temp = new FractionImpl(f.toString());
         int a, b, c, d;
         a = this.numerator;
         b = this.denominator;
-        c = temp.numerator;
-        d = temp.denominator;
-        temp.numerator = a * c;
-        temp.denominator = b * d;
-        temp.normalise();
-        return temp;
+        c = this.splitN(f.toString());
+        d = this.splitD(f.toString());
+        return new FractionImpl(a * c, b * d);
     }
 
 
@@ -171,7 +167,8 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction inverse() {
-        return null;
+        // The inverse of a/b is b/a.
+        return new FractionImpl(this.denominator, this.numerator);
     }
 
     /**
@@ -196,7 +193,6 @@ public class FractionImpl implements Fraction {
      */
     private void normalise() {
         int i;
-
         if (this.denominator == 0){
             throw new ArithmeticException("Divide by zero!");
         }
@@ -210,7 +206,6 @@ public class FractionImpl implements Fraction {
         this.numerator /=  i;
         this.denominator /= i;
     }
-
 
     /**
      * @inheritDoc
@@ -226,4 +221,23 @@ public class FractionImpl implements Fraction {
         }
         return (a == 0) ? b : a;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public int splitN(String s) {
+        s = s.trim();
+        String mystring[] = s.split("/");
+        return Integer.parseInt(mystring[0]);
+    }
+    /**
+     * @inheritDoc
+     */
+    public int splitD(String s) {
+        s = s.trim();
+        String mystring[] = s.split("/");
+        return Integer.parseInt(mystring[1]);
+    }
+
+
 }
