@@ -7,16 +7,21 @@ public class Main {
 
     public static void main(String[] args) {
         lineprint();
+        System.out.println("Constructor tests:");
+
         int n[] = new int[]{1, 2, 3,    5,   2,  10,    2,   4,  -4,  -4};
         int d[] = new int[]{1, 4, 12,  15,  22,  27,  300, -12,  12,  -12};
-        lineprint();
+
+
         for (int i = 0;  i < n.length; i++){
             Fraction f1 = new FractionImpl(n[i], d[i]);
             System.out.println("Test " + i + ": " + f1);
         }
 
         lineprint();
+        System.out.println("Further constructor tests:");
         lineprint();
+
         String x = "2/20";
         FractionImpl f1 = new FractionImpl(x);
         System.out.println(f1);
