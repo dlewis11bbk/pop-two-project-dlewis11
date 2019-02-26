@@ -1,7 +1,7 @@
 package fraction;
 import java.lang.Math.*;
 
-public class FractionImpl implements Fraction {
+public final class FractionImpl implements Fraction {
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
      * Normalize the fraction as you create it.
@@ -14,13 +14,17 @@ public class FractionImpl implements Fraction {
      * @param denominator
      */
 
-    private int numerator;
-    private int denominator;
+    // Fractions should be immutable
+    private final int numerator;
+    private final int denominator;
+    private final int NUM_POS = 0;
+    private final int DENOM_POS = 1;
+
 
     public FractionImpl(int numerator, int denominator) {
-        this.numerator = numerator;
-        this.denominator = denominator;
-        this.normalise();
+        int fracArray[] = this.normalise(numerator, denominator);
+        this.numerator = fracArray[NUM_POS];
+        this.denominator = fracArray[DENOM_POS];
     }
 
     /**
@@ -46,10 +50,20 @@ public class FractionImpl implements Fraction {
      */
     public FractionImpl(String fraction) {
         String f = fraction.trim();
-        String mystring[] = f.split("/");
-        this.numerator = Integer.parseInt(mystring[0]);
-        this.denominator = Integer.parseInt(mystring[1]);
-        this.normalise();
+        String fracSplit[] = f.split("/");
+        int n, d;
+        if (fracSplit.length == 1){
+            this.numerator = Integer.parseInt(fracSplit[NUM_POS]);
+            this.denominator = 1;
+        }
+        else{
+            n = Integer.parseInt(fracSplit[NUM_POS]);
+            d = Integer.parseInt(fracSplit[DENOM_POS]);
+            int fracArray[] = this.normalise(n, d);
+            this.numerator = fracArray[NUM_POS];
+            this.denominator = fracArray[DENOM_POS];
+        }
+
     }
 
     /**
@@ -185,7 +199,6 @@ public class FractionImpl implements Fraction {
         c = temp.numerator;
         d = temp.denominator;
         return ((a * d) - (c * b));
-
     }
 
 
@@ -200,29 +213,29 @@ public class FractionImpl implements Fraction {
     /**
      * @inheritDoc
      */
-    private void normalise() {
+    private int[] normalise(int n, int d) {
         int i;
-        if (this.denominator == 0){
+        int normFract[] = new int[2];
+        if (d == 0){
             throw new ArithmeticException("Divide by zero!");
         }
 
-        i = this.GCD(Math.abs(this.numerator), Math.abs(this.denominator));
+        i = this.GCD(Math.abs(n), Math.abs(d));
 
-        if (this.denominator < 0) {
-            this.numerator *= -1;
-            this.denominator *= -1;
+        if (d < 0) {
+            n *= -1;
+            d *= -1;
         }
-
-        this.numerator /=  i;
-        this.denominator /= i;
+        normFract[0] = n / i;
+        normFract[1] = d / i;
+        return normFract;
     }
 
     /**
      * @inheritDoc
      */
-    public int GCD(int a, int b) {
+    private int GCD(int a, int b) {
         while (a != 0 && b != 0) {
-            // System.out.println(a + " " + b);
             if (a > b) {
                 a = a % b;
             } else {
@@ -235,7 +248,7 @@ public class FractionImpl implements Fraction {
     /**
      * @inheritDoc
      */
-    public int splitN(String s) {
+    private int splitN(String s) {
         s = s.trim();
         String mystring[] = s.split("/");
         return Integer.parseInt(mystring[0]);
@@ -243,7 +256,7 @@ public class FractionImpl implements Fraction {
     /**
      * @inheritDoc
      */
-    public int splitD(String s) {
+    private int splitD(String s) {
         s = s.trim();
         String mystring[] = s.split("/");
         return Integer.parseInt(mystring[1]);

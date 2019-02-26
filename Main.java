@@ -2,15 +2,15 @@ import fraction.*;
 public class Main {
 
     public static void lineprint(){
-        System.out.println("- - - - - - - - - - - - - - - - - - - - - - ");
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
     }
 
     public static void main(String[] args) {
         lineprint();
-        System.out.println("Constructor tests:");
-
-        int n[] = new int[]{1, 2, 3,    5,   2,  10,    2,   4,  -4,  -4};
-        int d[] = new int[]{1, 4, 12,  15,  22,  27,  300, -12,  12,  -12};
+        System.out.println("Constructor tests for ints:");
+        lineprint();
+        int n[] = new int[]{1, 2, 3,    5,   2,  10,    2,   4,  -5,  -6};
+        int d[] = new int[]{1, 4, 12,  15,  22,  27,  300, -12,  20,  -36};
 
 
         for (int i = 0;  i < n.length; i++){
@@ -24,24 +24,54 @@ public class Main {
 
         String x = "2/20";
         FractionImpl f1 = new FractionImpl(x);
+        System.out.println("Expecting: 1/10");
+        System.out.println(f1);
+
+        lineprint();
+        x = "0/1";
+        f1 = new FractionImpl(x);
+        System.out.println("Expecting: 0/1");
+        System.out.println(f1);
+
+        lineprint();
+        x = "0/12";
+        f1 = new FractionImpl(x);
+        System.out.println("Expecting: 0/1 - from 0/12 input");
         System.out.println(f1);
 
         lineprint();
         x = "              4/20";
         f1 = new FractionImpl(x);
+        System.out.println("Expecting: 1/5");
+        System.out.println(f1);
+
+
+        lineprint();
+        x = "5";
+        f1 = new FractionImpl(x);
+        System.out.println("Expecting: 5/1");
+        System.out.println(f1);
+
+        lineprint();
+        x = "-3";
+        f1 = new FractionImpl(x);
+        System.out.println("Expecting: -3/1");
         System.out.println(f1);
 
         lineprint();
         x = "              5/-20";
         f1 = new FractionImpl(x);
+        System.out.println("Expecting: -1/4");
         System.out.println(f1);
 
         lineprint();
         x = "              -5/20";
         f1 = new FractionImpl(x);
+        System.out.println("Expecting: -1/4");
         System.out.println(f1);
 
         lineprint();
+        System.out.println("Expecting: divide by zero error");
         try {
             f1 = new FractionImpl(3, 0);
         }
@@ -50,12 +80,22 @@ public class Main {
         }
 
         lineprint();
+        System.out.println("Expecting: divide by zero error");
         try {
             f1 = new FractionImpl("23/0     ");
         }
         catch (ArithmeticException exc){
             System.out.println(exc);
         }
+
+        lineprint();
+        System.out.println("Both n & d are negative");
+        System.out.println("Not specifically specified for");
+        System.out.println("Creates positive fraction");
+        System.out.println("Expecting: 1/3");
+        f1 = new FractionImpl("-1/-3");
+        System.out.println(f1);
+
 
         lineprint();
         x = "10/20";
@@ -80,30 +120,17 @@ public class Main {
         System.out.println(f1 + " multiplied by " + f2 + " = " + f3);
 
         lineprint();
-        f1 = new FractionImpl("1/3");
-        System.out.println(f1.splitN(f1.toString()));
-        System.out.println(f1.splitD(f1.toString()));
-
-        lineprint();
-        x = "              5/-20";
-        f1 = new FractionImpl(x);
-        System.out.println(f1);
-        System.out.println(f1.splitN(f1.toString()));
-        System.out.println(f1.splitD(f1.toString()));
-
-
-        lineprint();
         x = "5/50     ";
         f1 = new FractionImpl(x);
-        System.out.println(f1);
-        System.out.println(f1.splitN(f1.toString()));
-        System.out.println(f1.splitD(f1.toString()));
         f2 = f1.inverse();
+        System.out.println("Expecting: inverse of 5/50 which is 10/1");
         System.out.println(f2);
+
 
         lineprint();
         f1 = new FractionImpl("0/12   ");
         System.out.println(f1);
+        System.out.println("Expecting: divide by zero error 1");
         try {
             f1.inverse();
         }
@@ -217,5 +244,7 @@ public class Main {
         f2 = new FractionImpl("3/6");
         //  return ((a * d) - (c * b)) / b * dx;
         System.out.println("Comparing " + f2 + " to " + f1 + ": " + f1.compareTo(f2));
+
+
     }
 }
