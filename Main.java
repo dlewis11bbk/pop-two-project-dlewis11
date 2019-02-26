@@ -12,18 +12,24 @@ public class Main {
         int n[] = new int[]{1, 2, 3,    5,   2,  10,    2,   4,  -5,  -6};
         int d[] = new int[]{1, 4, 12,  15,  22,  27,  300, -12,  20,  -36};
 
-
+        Fraction f1;
         for (int i = 0;  i < n.length; i++){
-            Fraction f1 = new FractionImpl(n[i], d[i]);
+            f1 = new FractionImpl(n[i], d[i]);
             System.out.println("Test " + i + ": " + f1);
         }
 
         lineprint();
         System.out.println("Further constructor tests:");
-        lineprint();
 
+
+        lineprint();
+        f1 = new FractionImpl(0, 33);
+        System.out.println("Expecting: 0/1 from int input 0/33");
+        System.out.println(f1);
+
+        lineprint();
         String x = "2/20";
-        FractionImpl f1 = new FractionImpl(x);
+        f1 = new FractionImpl(x);
         System.out.println("Expecting: 1/10");
         System.out.println(f1);
 
@@ -36,7 +42,13 @@ public class Main {
         lineprint();
         x = "0/12";
         f1 = new FractionImpl(x);
-        System.out.println("Expecting: 0/1 - from 0/12 input");
+        System.out.println("Expecting: 0/1 from 0/12 input");
+        System.out.println(f1);
+
+        lineprint();
+        x = "-4";
+        f1 = new FractionImpl(x);
+        System.out.println("Expecting: -4/1 from -4 input");
         System.out.println(f1);
 
         lineprint();

@@ -49,14 +49,13 @@ public final class FractionImpl implements Fraction {
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) {
-        String f = fraction.trim();
-        String fracSplit[] = f.split("/");
+        String fracSplit[] = fraction.trim().split("/");
         int n, d;
         if (fracSplit.length == 1){
             this.numerator = Integer.parseInt(fracSplit[NUM_POS]);
             this.denominator = 1;
         }
-        else{
+        else {
             n = Integer.parseInt(fracSplit[NUM_POS]);
             d = Integer.parseInt(fracSplit[DENOM_POS]);
             int fracArray[] = this.normalise(n, d);
