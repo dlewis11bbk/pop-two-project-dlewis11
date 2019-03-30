@@ -22,6 +22,8 @@ public final class FractionImpl implements Fraction {
      * @param denominator the denominator of the fraction
      */
     public FractionImpl(int numerator, int denominator) {
+        // Note: ArithmeticException is subclass of RunTimeException
+        // So we don't have to explicitly state "throws" in signature
         this.checkZeroD(denominator);
         Tuple f = new Tuple(numerator, denominator);
         this.manage_negs(f);
@@ -51,6 +53,8 @@ public final class FractionImpl implements Fraction {
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) {
+        // Note: ArithmeticException is subclass of RunTimeException
+        // So we don't have to explicitly state "throws" in signature
         final int NUM_POS = 0;
         final int DENOM_POS = 1;
         String[] fracSplit = fraction.trim().split("/");
@@ -93,7 +97,13 @@ public final class FractionImpl implements Fraction {
      */
     @Override
     public Fraction add(Fraction f) {
-        return null;
+        FractionImpl temp = (FractionImpl) f;
+        int a, b, c, d;
+        a = this.numerator;
+        b = this.denominator;
+        c = temp.numerator;
+        d = temp.denominator;
+        return new FractionImpl(a * d + b * c, b * d);
     }
 
     /**
@@ -224,7 +234,6 @@ public final class FractionImpl implements Fraction {
     public String toString() {
         return this.numerator + "/" + this.denominator;
     }
-
 
     /**
      * Manages constructor with denominator given as zero
