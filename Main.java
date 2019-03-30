@@ -233,26 +233,26 @@ public class Main {
         lineprint();
         f1 = new FractionImpl("4/7   ");
         f2 = new FractionImpl("2/3");
-        System.out.println(f1.equals(f2));
+
+        System.out.println("Expecting false: " + f1.equals(f2));
 
         lineprint();
         x = "I am a string ";
         f1 = new FractionImpl("4/7   ");
-        System.out.println(f1.equals(x));
+        System.out.println("Expecting false: " + f1.equals(x));
 
         lineprint();
         f1 = new FractionImpl("4/7   ");
         f2 = new FractionImpl("12/21");
-        System.out.println(f1.equals(f2));
+        System.out.println("Expecting true: " + f1.equals(f2));
 
         lineprint();
-        f1 = new FractionImpl("4/7   ");
-        f2 = new FractionImpl("12/21");
-        System.out.println(f1.equals(f2));
+        f1 = new FractionImpl("1/3   ");
+        f2 = new FractionImpl("4/12");
+        System.out.println("Expecting true: " + f1.equals(f2));
 
         lineprint();
         System.out.println("Testing compareTo:");
-        lineprint();
         lineprint();
         f1 = new FractionImpl("4/7   ");
         f2 = new FractionImpl("12/21");
@@ -291,6 +291,21 @@ public class Main {
          */
         System.out.println(f4 + " subtracted by " + f4 + " = " + f6);
 
+        lineprint();
+        x = "2/5";
+        f1 = new FractionImpl(x);
+        x = "1/5";
+        f2 = new FractionImpl(x);
+        f3 = f1.add(f2);
+        System.out.println(f1 + " added to " + f2 + " = " + f3);
+
+        lineprint();
+        x = "2/8";
+        f1 = new FractionImpl(x);
+        x = "1/4";
+        f2 = new FractionImpl(x);
+        f3 = f1.add(f2);
+        System.out.println(f1 + " added to " + f2 + " = " + f3);
 
     }
 }
